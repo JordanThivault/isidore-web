@@ -2,10 +2,11 @@
 
 /* =========================================================================
    Isidore Web — Système de design
-   Palette : papier crème chaud, encre chaude, terracotta brique, olive.
-   Typo    : Fraunces (serif humaniste, wordmark & titres) + Hanken (sans, corps).
+   Palette : papier crème chaud, encre chaude, terracotta brique, olive,
+             + un noir chaud pour les encarts contrastés (façon atelier).
+   Typo    : Bricolage Grotesque (titres, wordmark) + Inter (corps).
    Les tokens ci-dessous génèrent automatiquement les utilitaires Tailwind v4
-   (ex : bg-paper, text-ink, text-terracotta, border-line, font-serif...).
+   (ex : bg-paper, text-ink, text-terracotta, border-line, bg-noir, font-display…).
    ========================================================================= */
 
 @theme {
@@ -13,13 +14,17 @@
   --color-paper: #faf7f0; /* fond principal */
   --color-paper-2: #f3eee1; /* fond alterné / cartes */
 
+  /* Noir chaud — encarts contrastés (engagements, etc.) */
+  --color-noir: #1a1712;
+  --color-noir-2: #24201a;
+
   /* Couleurs — texte */
   --color-ink: #2b2924; /* titres, texte fort (near-black chaud) */
   --color-ink-soft: #55504a; /* paragraphes */
   --color-muted: #8c8676; /* légendes, eyebrows */
 
   /* Couleurs — accents */
-  --color-terracotta: #b8543a; /* accent principal (brique, pas le terracotta "défaut") */
+  --color-terracotta: #b8543a; /* accent principal (brique) */
   --color-terracotta-soft: #c9694f; /* hover accent */
   --color-olive: #6b6b47; /* accent secondaire discret */
 
@@ -28,8 +33,8 @@
   --color-line-strong: #d6cfba;
 
   /* Typo */
-  --font-serif: var(--font-fraunces), Georgia, "Times New Roman", serif;
-  --font-sans: var(--font-hanken), system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-bricolage), "Segoe UI", system-ui, sans-serif;
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
 
   /* Rayons */
   --radius-card: 0.75rem;
@@ -58,9 +63,10 @@
   h2,
   h3 {
     color: var(--color-ink);
-    font-family: var(--font-serif);
-    font-weight: 400;
-    letter-spacing: -0.01em;
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
   }
 
   ::selection {
@@ -81,10 +87,12 @@
   /* Conteneur centré cohérent sur tout le site */
   .container-x {
     width: 100%;
-    max-width: 68rem; /* ~1088px, proportions éditoriales */
+    max-width: 90rem; 
     margin-inline: auto;
     padding-inline: var(--spacing-gutter);
   }
+
+  
 
   /* Eyebrow : petit label de section en capitales espacées */
   .eyebrow {
@@ -96,6 +104,11 @@
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--color-muted);
+  }
+
+  /* Variante claire de l'eyebrow, pour les fonds sombres (hero, encart noir) */
+  .eyebrow-light {
+    color: rgba(250, 247, 240, 0.72);
   }
 
   /* Petit trait terracotta qui précède l'eyebrow (signature discrète) */

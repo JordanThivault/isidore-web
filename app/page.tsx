@@ -1,12 +1,13 @@
 import { Navbar } from "@/components/navbar";
 import { Hero } from "@/components/hero";
+import { GoogleReviews } from "@/components/google-reviews";
 import { About } from "@/components/about";
 import { Realisations } from "@/components/realisations";
+import { PourQui } from "@/components/pour-qui";
 import { Pricing } from "@/components/pricing";
 import { Engagements } from "@/components/engagements";
 import { Contact } from "@/components/contact";
 import { Footer } from "@/components/footer";
-// import { GoogleReviews } from "@/components/google-reviews";
 
 export default function Home() {
   return (
@@ -14,12 +15,10 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-
-        {/* Bandeau avis Google — à activer quand ta fiche aura de vrais avis :
-            <GoogleReviews rating={4.9} count={12} href="https://..." /> */}
-
+        <GoogleReviews />
         <About />
         <Realisations />
+        <PourQui />
         <Pricing />
         <Engagements />
         <Contact />

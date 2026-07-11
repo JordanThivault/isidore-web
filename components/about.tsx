@@ -2,8 +2,11 @@ import Image from "next/image";
 
 export function About() {
   return (
-    <section id="a-propos" className="border-b border-line">
-      <div className="container-x grid gap-10 py-20 md:grid-cols-[auto_1fr] md:gap-14 md:py-24">
+    <section
+      id="a-propos"
+      className="flex min-h-[60svh] items-center border-b border-line bg-paper"
+    >
+      <div className="container-x grid gap-10 py-12 md:grid-cols-[auto_1fr] md:gap-14 md:py-16">
         {/* Photo */}
         <div className="mx-auto md:mx-0">
           <div className="relative h-40 w-40 overflow-hidden rounded-card border border-line bg-paper-2 md:h-52 md:w-52">
@@ -24,7 +27,9 @@ export function About() {
         {/* Texte */}
         <div className="max-w-2xl">
           <p className="eyebrow mb-5">À propos</p>
-          <h2 className="text-3xl md:text-[2.25rem]">Bonjour, moi c&apos;est Jordan.</h2>
+          <h2 className="text-[clamp(2rem,3.5vw,3rem)]">
+            Bonjour, moi c&apos;est Jordan.
+          </h2>
 
           <div className="mt-6 space-y-4 text-ink-soft">
             <p>

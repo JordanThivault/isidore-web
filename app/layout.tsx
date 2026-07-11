@@ -1,18 +1,20 @@
 import type { Metadata } from "next";
-import { Fraunces, Hanken_Grotesk } from "next/font/google";
+import { Bricolage_Grotesque, Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 // Auto-hébergées au build par next/font → pas d'appel à Google au runtime (RGPD).
-const fraunces = Fraunces({
+// Bricolage Grotesque : grotesque un peu chaleureuse pour les grands titres.
+const bricolage = Bricolage_Grotesque({
   subsets: ["latin"],
-  variable: "--font-fraunces",
+  variable: "--font-bricolage",
   display: "swap",
 });
 
-const hanken = Hanken_Grotesk({
+// Inter : sans-serif neutre et lisible pour le corps de texte.
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-hanken",
+  variable: "--font-inter",
   display: "swap",
 });
 
@@ -52,7 +54,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="fr" className={`${fraunces.variable} ${hanken.variable}`}>
+    <html lang="fr" className={`${bricolage.variable} ${inter.variable}`}>
       <body className="font-sans">
         {children}
         <Analytics />

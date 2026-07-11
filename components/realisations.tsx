@@ -4,10 +4,13 @@ import { projects } from "@/data/projects";
 
 export function Realisations() {
   return (
-    <section id="realisations" className="border-b border-line">
+    <section
+      id="realisations"
+      className="flex min-h-svh items-center border-b border-line bg-paper"
+    >
       <div className="container-x py-20 md:py-24">
         <p className="eyebrow mb-5">Réalisations</p>
-        <h2 className="max-w-xl text-3xl md:text-[2.25rem]">
+        <h2 className="max-w-xl text-[clamp(2rem,3.5vw,3rem)]">
           Des sites conçus sur-mesure, pas des modèles recyclés.
         </h2>
 

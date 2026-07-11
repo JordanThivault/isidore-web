@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { Wordmark } from "@/components/wordmark";
@@ -16,28 +16,55 @@ const links = [
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  // Transparente sur le hero, puis fond crème + ombre dès qu'on scrolle.
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Le menu mobile ouvert force le style "clair" pour rester lisible.
+  const solid = scrolled || open;
 
   return (
-    <header className="sticky top-0 z-50 border-b border-line bg-paper/85 backdrop-blur-sm">
-      <nav className="container-x flex h-16 items-center justify-between">
-        <Link href="#top" aria-label="Isidore web — accueil">
+    <header
+      className={cn(
+        "fixed inset-x-0 top-0 z-50 transition-colors duration-300",
+        solid
+          ? "border-b border-line bg-paper/90 text-ink backdrop-blur-sm shadow-[0_1px_0_rgba(0,0,0,0.03)]"
+          : "border-b border-transparent text-paper"
+      )}
+    >
+      <nav className="container-x flex h-16 items-center justify-between md:h-20">
+        {/* Gauche : logo */}
+        <Link href="#top" aria-label="Isidore web — accueil" className="shrink-0">
           <Wordmark />
         </Link>
 
-        {/* Desktop */}
-        <div className="hidden items-center gap-8 md:flex">
-          <ul className="flex items-center gap-7 text-sm text-ink-soft">
-            {links.map((l) => (
-              <li key={l.href}>
-                <a
-                  href={l.href}
-                  className="transition-colors hover:text-terracotta"
-                >
-                  {l.label}
-                </a>
-              </li>
-            ))}
-          </ul>
+        {/* Centre : liens (desktop) */}
+        <ul className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 text-sm md:flex">
+          {links.map((l) => (
+            <li key={l.href}>
+              <a
+                href={l.href}
+                className={cn(
+                  "transition-colors",
+                  solid
+                    ? "text-ink-soft hover:text-terracotta"
+                    : "text-paper/80 hover:text-paper"
+                )}
+              >
+                {l.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        {/* Droite : CTA */}
+        <div className="hidden md:block">
           <a href="#contact">
             <Button size="sm" variant="accent">
               Devis gratuit
@@ -48,7 +75,7 @@ export function Navbar() {
         {/* Mobile toggle */}
         <button
           type="button"
-          className="md:hidden text-ink"
+          className="text-current md:hidden"
           aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
@@ -60,8 +87,8 @@ export function Navbar() {
       {/* Mobile panel */}
       <div
         className={cn(
-          "md:hidden overflow-hidden border-t border-line transition-[max-height] duration-300",
-          open ? "max-h-80" : "max-h-0"
+          "overflow-hidden border-t bg-paper text-ink transition-[max-height] duration-300 md:hidden",
+          open ? "max-h-96 border-line" : "max-h-0 border-transparent"
         )}
       >
         <ul className="container-x flex flex-col gap-1 py-4 text-ink-soft">

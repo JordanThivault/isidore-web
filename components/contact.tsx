@@ -16,7 +16,10 @@ export function Contact() {
 
   if (state.ok) {
     return (
-      <section id="contact" className="border-b border-line">
+      <section
+        id="contact"
+        className="flex min-h-svh items-center border-b border-line bg-paper"
+      >
         <div className="container-x py-20 md:py-24">
           <div className="mx-auto max-w-md rounded-card border border-line bg-paper-2 p-8 text-center">
             <CheckCircle2 className="mx-auto text-terracotta" size={32} />
@@ -32,11 +35,14 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="border-b border-line">
+    <section
+      id="contact"
+      className="flex min-h-svh items-center border-b border-line bg-paper"
+    >
       <div className="container-x grid gap-12 py-20 md:grid-cols-[1fr_1.1fr] md:py-24">
         <div className="max-w-md">
           <p className="eyebrow mb-5">Contact</p>
-          <h2 className="text-3xl md:text-[2.25rem]">
+          <h2 className="text-[clamp(2rem,3.5vw,3rem)]">
             Un projet en tête ? Parlons-en.
           </h2>
           <p className="mt-5 text-ink-soft">

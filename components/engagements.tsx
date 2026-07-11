@@ -15,7 +15,7 @@ const engagements: Engagement[] = [
   },
   {
     icon: Gauge,
-    title: "Un site rapide et bien référencé",
+    title: "Rapide et bien référencé",
     body: "Des choix techniques pensés pour être récompensés par Google, pas juste pour faire joli.",
   },
   {
@@ -37,25 +37,38 @@ const engagements: Engagement[] = [
 
 export function Engagements() {
   return (
-    <section id="engagements" className="border-b border-line">
-      <div className="container-x py-20 md:py-24">
+    <section
+      id="engagements"
+      className="flex min-h-[50svh] items-center border-b border-line bg-paper"
+    >
+      <div className="container-x w-full py-16 md:py-20">
         <p className="eyebrow mb-5">Mes engagements</p>
-        <h2 className="max-w-xl text-3xl md:text-[2.25rem]">
+        <h2 className="text-[clamp(2rem,4vw,3.25rem)]">
           Ce sur quoi vous pouvez compter.
         </h2>
 
-        <div className="mt-12 grid gap-x-10 gap-y-9 sm:grid-cols-2">
-          {engagements.map(({ icon: Icon, title, body }) => (
-            <div key={title} className="flex gap-4">
-              <span className="mt-0.5 flex h-9 w-9 flex-none items-center justify-center rounded-md border border-line bg-paper-2 text-terracotta">
-                <Icon size={18} strokeWidth={1.75} />
-              </span>
-              <div>
-                <h3 className="text-lg leading-snug">{title}</h3>
-                <p className="mt-1.5 text-sm text-ink-soft">{body}</p>
-              </div>
-            </div>
-          ))}
+        {/* lg:items-start = chaque carte garde sa hauteur (indispensable pour le quinconce) */}
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 md:mt-12 lg:grid-cols-5 lg:items-start">
+          {engagements.map(({ icon: Icon, title, body }, i) => {
+            // Décale les 2e et 4e cartes vers le bas, uniquement en vue 5 colonnes.
+            const stagger = i % 2 === 1 ? "lg:mt-12" : "";
+            return (
+              <article
+                key={title}
+                className={`group flex flex-col rounded-card border border-line bg-paper-2 p-5 transition-colors duration-300 hover:border-terracotta hover:bg-terracotta ${stagger}`}
+              >
+                <span className="flex h-10 w-10 flex-none items-center justify-center rounded-md border border-line bg-paper text-terracotta transition-colors duration-300 group-hover:border-white/25 group-hover:bg-white/10 group-hover:text-paper">
+                  <Icon size={18} strokeWidth={1.75} />
+                </span>
+                <h3 className="mt-4 text-base font-semibold text-ink transition-colors duration-300 group-hover:text-paper">
+                  {title}
+                </h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-ink-soft transition-colors duration-300 group-hover:text-paper/90">
+                  {body}
+                </p>
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>
