@@ -18,7 +18,7 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  // Transparente sur le hero, puis fond crème + ombre dès qu'on scrolle.
+  // Transparente en haut du hero (clair), puis fond crème + ombre au scroll.
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
@@ -26,16 +26,15 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Le menu mobile ouvert force le style "clair" pour rester lisible.
   const solid = scrolled || open;
 
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-colors duration-300",
+        "fixed inset-x-0 top-0 z-50 text-ink transition-colors duration-300",
         solid
-          ? "border-b border-line bg-paper/90 text-ink backdrop-blur-sm shadow-[0_1px_0_rgba(0,0,0,0.03)]"
-          : "border-b border-transparent text-paper"
+          ? "border-b border-line bg-paper/90 shadow-[0_1px_0_rgba(0,0,0,0.03)] backdrop-blur-sm"
+          : "border-b border-transparent"
       )}
     >
       <nav className="container-x flex h-16 items-center justify-between md:h-20">
@@ -50,12 +49,7 @@ export function Navbar() {
             <li key={l.href}>
               <a
                 href={l.href}
-                className={cn(
-                  "transition-colors",
-                  solid
-                    ? "text-ink-soft hover:text-terracotta"
-                    : "text-paper/80 hover:text-paper"
-                )}
+                className="text-ink-soft transition-colors hover:text-terracotta"
               >
                 {l.label}
               </a>

@@ -52,26 +52,9 @@ export function GoogleReviews({
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
             <p className="eyebrow mb-4">Avis clients</p>
-            <div className="flex items-baseline gap-3">
-              <span className="font-display text-4xl font-semibold text-ink md:text-5xl">
-                {rating.toFixed(1)}
-                <span className="text-2xl text-muted">/5</span>
-              </span>
-              <span className="flex items-center gap-0.5" aria-hidden>
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star
-                    key={i}
-                    size={18}
-                    className={
-                      i < full
-                        ? "fill-terracotta text-terracotta"
-                        : "text-line-strong"
-                    }
-                  />
-                ))}
-              </span>
-            </div>
-            <p className="mt-2 text-sm text-muted">{count} avis Google</p>
+            <h2 className="text-[clamp(2rem,3.5vw,3rem)]">
+            Des clients satisfaits
+            </h2>
           </div>
 
           {href && (

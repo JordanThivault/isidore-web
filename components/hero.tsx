@@ -1,60 +1,93 @@
-import Image from "next/image";
+import { Star, Phone, CalendarDays, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 export function Hero() {
   return (
-    <section id="top" className="relative h-svh">
-      {/* Image fixée au viewport : elle reste en place pendant que la section
-          suivante (opaque) remonte par-dessus pour la recouvrir au scroll.
-          Remplace par ta photo : /public/hero-bureau.jpg */}
-      <div className="fixed inset-0 -z-10">
-        <Image
-          src="/hero-bureau.jpg"
-          alt="Bureau : carnet, tasse de café et ordinateur"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-        />
-        {/* Voile sombre pour la lisibilité du texte */}
-        <div className="absolute inset-0 bg-gradient-to-b from-noir/75 via-noir/55 to-noir/85" />
-      </div>
+    <section
+      id="top"
+      className="flex min-h-svh items-center border-b border-line bg-paper"
+    >
+      <div className="container-x grid w-full items-center gap-12 py-28 md:grid-cols-[1.05fr_1fr] md:py-32">
+        {/* Colonne texte + infos */}
+        <div className="reveal">
+          <p className="eyebrow mb-5">
+            Création de sites web — Indre-et-Loire, Sarthe
+          </p>
 
-      {/* Contenu du hero, centré sur toute la hauteur. Il défile normalement
-          au scroll (c'est le contenu qui bouge, l'image reste fixe). */}
-      <div className="relative flex h-full items-center">
-        <div className="container-x">
-          <div className="reveal max-w-3xl">
-            <p className="eyebrow eyebrow-light mb-6">
-              Création de sites web — Indre-et-Loire, Sarthe
-            </p>
+          <h1 className="text-[clamp(2.5rem,5.5vw,4rem)] font-semibold leading-[1.05] text-ink">
+            Un site pensé pour votre activité.
+          </h1>
 
-            <h1 className="text-[clamp(2.75rem,6.5vw,5.25rem)] font-semibold leading-[1.02] text-paper">
-              Un site pensé pour votre activité.
-            </h1>
+          <p className="mt-6 max-w-md text-lg text-ink-soft">
+            Conçu pour vos besoins, livré à partir de 14 jours.
+          </p>
 
-            <p className="mt-6 max-w-lg text-lg text-paper/75 md:text-xl">
-              Conçu pour vos besoins, livré à partir de 14 jours.
-            </p>
-
-            <div className="mt-10 flex flex-wrap items-center gap-4">
-              <a href="#contact">
-                <Button variant="accent" size="lg">
-                  Devis gratuit
-                </Button>
-              </a>
-              <a href="#realisations">
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="border-white/30 bg-transparent text-paper hover:bg-white/10"
-                >
-                  Voir une réalisation
-                </Button>
-              </a>
+          {/* Infos : note Google + contact/dispos, sous le titre */}
+          <div className="mt-8 space-y-3 text-sm">
+            <div className="flex items-center gap-2">
+              <span className="flex items-center gap-0.5" aria-hidden>
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star
+                    key={i}
+                    size={15}
+                    className="fill-terracotta text-terracotta"
+                  />
+                ))}
+              </span>
+              <span className="font-semibold text-ink">4,9/5</span>
+              <span className="text-muted">· 12 avis Google</span>
             </div>
+
+            <ul className="flex flex-wrap gap-x-5 gap-y-2 text-ink-soft">
+              <li className="flex items-center gap-1.5">
+                <Phone size={15} strokeWidth={1.75} className="text-terracotta" />
+                <a
+                  href="tel:+33688358912"
+                  className="font-medium text-ink transition-colors hover:text-terracotta"
+                >
+                  06 88 35 89 12
+                </a>
+              </li>
+              <li className="flex items-center gap-1.5">
+                <CalendarDays
+                  size={15}
+                  strokeWidth={1.75}
+                  className="text-terracotta"
+                />
+                Du lundi au samedi
+              </li>
+              <li className="flex items-center gap-1.5">
+                <Clock size={15} strokeWidth={1.75} className="text-terracotta" />
+                Réponse en moins de 24 h
+              </li>
+            </ul>
+          </div>
+
+          <div className="mt-9 flex flex-wrap items-center gap-4">
+            <a href="#contact">
+              <Button variant="accent" size="lg">
+                Devis gratuit
+              </Button>
+            </a>
+            <a href="#realisations">
+              <Button variant="ghost" size="lg">
+                Voir une réalisation
+              </Button>
+            </a>
           </div>
         </div>
+
+        {/* Colonne visuel — placeholder (remplace par ton image quand tu l'auras) */}
+        <div className="reveal" style={{ animationDelay: "120ms" }}>
+        <Image
+          src="/hero.png"
+          alt="Visuel de présentation"
+          width={800}
+          height={600}
+          className="h-auto w-full"
+        />
+      </div>
       </div>
     </section>
   );

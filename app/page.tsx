@@ -15,12 +15,12 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        <GoogleReviews />
         <About />
         <Realisations />
         <PourQui />
         <Pricing />
         <Engagements />
+        <GoogleReviews />
         <Contact />
       </main>
       <Footer />

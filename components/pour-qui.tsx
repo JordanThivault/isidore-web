@@ -35,8 +35,7 @@ export function PourQui() {
         <p className="eyebrow mb-5">Site web créé en Indre-et-Loire et Sarthe</p>
         <h2 className="text-[clamp(2rem,4vw,3.25rem)]">Pour qui ?</h2>
         <p className="mt-5 max-w-2xl text-ink-soft">
-          Artisan, commerçant ou indépendant en Indre-et-Loire ou en Sarthe, vous
-          êtes exactement la cible de ce que je fais.
+          Artisan, commerçant ou indépendant en Indre-et-Loire ou en Sarthe.
         </p>
 
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4 md:mt-12">

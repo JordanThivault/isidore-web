@@ -39,7 +39,7 @@ export function Engagements() {
   return (
     <section
       id="engagements"
-      className="flex min-h-[50svh] items-center border-b border-line bg-paper"
+      className="flex min-h-[80svh] items-center border-b border-line bg-paper"
     >
       <div className="container-x w-full py-16 md:py-20">
         <p className="eyebrow mb-5">Mes engagements</p>
@@ -47,28 +47,23 @@ export function Engagements() {
           Ce sur quoi vous pouvez compter.
         </h2>
 
-        {/* lg:items-start = chaque carte garde sa hauteur (indispensable pour le quinconce) */}
-        <div className="mt-10 grid gap-5 sm:grid-cols-2 md:mt-12 lg:grid-cols-5 lg:items-start">
-          {engagements.map(({ icon: Icon, title, body }, i) => {
-            // Décale les 2e et 4e cartes vers le bas, uniquement en vue 5 colonnes.
-            const stagger = i % 2 === 1 ? "lg:mt-12" : "";
-            return (
-              <article
-                key={title}
-                className={`group flex flex-col rounded-card border border-line bg-paper-2 p-5 transition-colors duration-300 hover:border-terracotta hover:bg-terracotta ${stagger}`}
-              >
-                <span className="flex h-10 w-10 flex-none items-center justify-center rounded-md border border-line bg-paper text-terracotta transition-colors duration-300 group-hover:border-white/25 group-hover:bg-white/10 group-hover:text-paper">
-                  <Icon size={18} strokeWidth={1.75} />
-                </span>
-                <h3 className="mt-4 text-base font-semibold text-ink transition-colors duration-300 group-hover:text-paper">
-                  {title}
-                </h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-ink-soft transition-colors duration-300 group-hover:text-paper/90">
-                  {body}
-                </p>
-              </article>
-            );
-          })}
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 md:mt-12 lg:grid-cols-5">
+          {engagements.map(({ icon: Icon, title, body }) => (
+            <article
+              key={title}
+              className="group flex flex-col rounded-card border border-line bg-paper-2 p-5 transition-colors duration-300 hover:border-terracotta hover:bg-terracotta"
+            >
+              <span className="flex h-10 w-10 flex-none items-center justify-center rounded-md border border-line bg-paper text-terracotta transition-colors duration-300 group-hover:border-white/25 group-hover:bg-white/10 group-hover:text-paper">
+                <Icon size={18} strokeWidth={1.75} />
+              </span>
+              <h3 className="mt-4 text-base font-semibold text-ink transition-colors duration-300 group-hover:text-paper">
+                {title}
+              </h3>
+              <p className="mt-1.5 text-sm leading-relaxed text-ink-soft transition-colors duration-300 group-hover:text-paper/90">
+                {body}
+              </p>
+            </article>
+          ))}
         </div>
       </div>
     </section>
