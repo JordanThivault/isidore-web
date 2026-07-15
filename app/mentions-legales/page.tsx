@@ -6,23 +6,18 @@ export const metadata: Metadata = { title: "Mentions légales" };
 export default function MentionsLegales() {
   return (
     <LegalPage title="Mentions légales">
-      <p className="rounded-md border border-line bg-paper-2 p-4 text-sm">
-        <strong>À compléter avant la mise en ligne.</strong> Cette page comporte
-        des mentions obligatoires (identité, SIRET, hébergeur…). Fais-la relire
-        si besoin.
-      </p>
-
       <h2>Éditeur du site</h2>
       <p>
-        Jordan [Nom] — micro-entreprise
+        Jordan Thivault — Isidore Web, Entrepreneur Individuel
         <br />
-        Adresse : [à compléter], Château-du-Loir (72)
+        Adresse : 26 B rue Aristide Briand, Château-du-Loir, 72500
+        Montval-sur-Loir
         <br />
-        SIRET : [à compléter]
+        SIRET : 989 714 902 00016
         <br />
         Email : contact@isidoreweb.fr
         <br />
-        Responsable de la publication : Jordan [Nom]
+        Responsable de la publication : Jordan Thivault
       </p>
 
       <h2>Hébergement</h2>
@@ -37,8 +32,8 @@ export default function MentionsLegales() {
       <h2>Propriété intellectuelle</h2>
       <p>
         L&apos;ensemble des contenus de ce site (textes, visuels, code) est la
-        propriété de leur auteur, sauf mention contraire. Toute reproduction sans
-        autorisation est interdite.
+        propriété de leur auteur, sauf mention contraire. Toute reproduction
+        sans autorisation est interdite.
       </p>
     </LegalPage>
   );

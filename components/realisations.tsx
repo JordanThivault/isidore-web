@@ -58,7 +58,7 @@ export function Realisations() {
   return (
     <section
       id="realisations"
-      className="flex min-h-svh items-center border-b border-line bg-paper"
+      className="flex min-h-svh items-center border-b border-line bg-paper-2"
     >
       <div className="container-x w-full py-20 md:py-24">
         <p className="eyebrow mb-5">Réalisations</p>

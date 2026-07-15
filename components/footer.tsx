@@ -1,5 +1,13 @@
 import Link from "next/link";
+import { Mail, Phone } from "lucide-react";
 import { Wordmark } from "@/components/wordmark";
+
+const navigation = [
+  { href: "#realisations", label: "Réalisations" },
+  { href: "#tarifs", label: "Tarifs" },
+  { href: "#engagements", label: "Mes engagements" },
+  { href: "#contact", label: "Contact" },
+];
 
 const legal = [
   { href: "/mentions-legales", label: "Mentions légales" },
@@ -7,38 +15,89 @@ const legal = [
   { href: "/cgv", label: "CGV" },
 ];
 
+/** Petit label de colonne — équivalent de .eyebrow, adapté au fond terracotta. */
+function ColumnTitle({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="mb-4 inline-flex items-center gap-2.5 text-[0.72rem] font-medium uppercase tracking-[0.14em] text-paper/70">
+      <span className="h-px w-7 bg-paper/40" aria-hidden />
+      {children}
+    </p>
+  );
+}
+
 export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-paper">
-      <div className="container-x py-12">
-        <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+    <footer className="bg-terracotta text-paper">
+      <div className="container-x py-16 md:py-20">
+        <div className="grid gap-12 md:grid-cols-[1.3fr_1fr_1fr]">
+          {/* Logo, accroche, contact */}
           <div>
-            <Wordmark />
-            {/* Clin d'œil discret à l'histoire de marque */}
-            <p className="mt-3 max-w-xs text-sm text-muted">
+            {/* Force le wordmark en blanc : ses deux <span> ont leurs propres
+                couleurs (ink + terracotta), invisibles sur ce fond. */}
+            <Wordmark className="[&>span]:text-paper" />
+
+            <p className="mt-4 max-w-xs text-sm text-paper/70">
               Isidore de Séville, patron des internautes. Des sites web
-              sur-mesure pour les artisans et PME d&apos;Indre-et-Loire et de la
-              Sarthe.
+              sur-mesure pour les artisans et PME d&apos;Indre-et-Loire et de
+              la Sarthe.
             </p>
+
+            <div className="mt-6 space-y-2.5 text-sm">
+              <a
+                href="tel:+33688358912"
+                className="flex items-center gap-2 text-paper/90 transition-colors hover:text-paper"
+              >
+                <Phone size={15} className="text-paper/60" />
+                06 88 35 89 12
+              </a>
+              <a
+                href="mailto:contact@isidoreweb.fr"
+                className="flex items-center gap-2 text-paper/90 transition-colors hover:text-paper"
+              >
+                <Mail size={15} className="text-paper/60" />
+                contact@isidoreweb.fr
+              </a>
+            </div>
           </div>
 
-          <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-ink-soft">
-            {legal.map((l) => (
-              <li key={l.href}>
-                <Link
-                  href={l.href}
-                  className="transition-colors hover:text-terracotta"
-                >
-                  {l.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
+          {/* Navigation */}
+          <div>
+            <ColumnTitle>Navigation</ColumnTitle>
+            <ul className="space-y-2.5 text-sm">
+              {navigation.map((l) => (
+                <li key={l.href}>
+                  <a
+                    href={l.href}
+                    className="text-paper/80 transition-colors hover:text-paper"
+                  >
+                    {l.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Informations légales */}
+          <div>
+            <ColumnTitle>Informations</ColumnTitle>
+            <ul className="space-y-2.5 text-sm">
+              {legal.map((l) => (
+                <li key={l.href}>
+                  <Link
+                    href={l.href}
+                    className="text-paper/80 transition-colors hover:text-paper"
+                  >
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
-        <div className="mt-10 border-t border-line pt-6 text-xs text-muted">
+        <div className="mt-14 border-t border-paper/20 pt-6 text-xs text-paper/60">
           © {year} Isidore web — Tous droits réservés.
         </div>
       </div>

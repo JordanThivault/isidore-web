@@ -27,60 +27,55 @@ const placeholderReviews: Review[] = [
 ];
 
 type GoogleReviewsProps = {
-  /** Note moyenne, ex : 4.9 */
-  rating?: number;
-  /** Nombre d'avis */
-  count?: number;
   /** Lien vers la fiche Google (facultatif) */
   href?: string;
   /** Avis à afficher (placeholder par défaut) */
   reviews?: Review[];
 };
 
+/**
+ * Bandeau d'avis — pensé pour être rendu À L'INTÉRIEUR d'une section
+ * (actuellement le Hero) : pas de <section>, pas de fond, pas de hauteur.
+ * Il hérite donc du fond de son parent.
+ *
+ * Pour le futur carrousel : le wrapper `overflow-hidden` est déjà là, il
+ * suffira d'animer la piste (.reviews-track) en translateX et de dupliquer
+ * le tableau `reviews` pour une boucle infinie.
+ */
 export function GoogleReviews({
-  rating = 4.9,
-  count = 12,
   href,
   reviews = placeholderReviews,
 }: GoogleReviewsProps) {
-  const full = Math.round(rating);
-
   return (
-    <section className="flex min-h-[40svh] items-center border-b border-line bg-paper-2">
-      <div className="container-x w-full py-14 md:py-16">
-        {/* En-tête : note globale */}
-        <div className="flex flex-wrap items-end justify-between gap-6">
-          <div>
-            <p className="eyebrow mb-4">Avis clients</p>
-            <h2 className="text-[clamp(2rem,3.5vw,3rem)]">
-            Des clients satisfaits
-            </h2>
-          </div>
+    <div className="container-x w-full">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <p className="eyebrow">Avis clients</p>
 
-          {href && (
-            <a
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm font-medium text-terracotta underline underline-offset-4 transition-colors hover:text-terracotta-soft"
-            >
-              Voir tous les avis
-            </a>
-          )}
-        </div>
+        {href && (
+          <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm font-medium text-terracotta underline underline-offset-4 transition-colors hover:text-terracotta-soft"
+          >
+            Voir tous les avis
+          </a>
+        )}
+      </div>
 
-        {/* Cartes d'avis */}
-        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {/* Piste des avis — deviendra le carrousel */}
+      <div className="mt-4 overflow-hidden">
+        <div className="reviews-track grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {reviews.map((r) => (
             <figure
               key={r.name}
-              className="flex flex-col rounded-card border border-line bg-paper p-5"
+              className="flex flex-col rounded-card border border-line bg-paper p-3.5"
             >
               <span className="flex items-center gap-0.5" aria-hidden>
                 {Array.from({ length: 5 }).map((_, i) => (
                   <Star
                     key={i}
-                    size={14}
+                    size={13}
                     className={
                       i < r.rating
                         ? "fill-terracotta text-terracotta"
@@ -89,16 +84,16 @@ export function GoogleReviews({
                   />
                 ))}
               </span>
-              <blockquote className="mt-3 flex-1 text-sm leading-relaxed text-ink-soft">
+              <blockquote className="mt-2 flex-1 text-xs leading-relaxed text-ink-soft">
                 {r.text}
               </blockquote>
-              <figcaption className="mt-4 text-sm font-medium text-ink">
+              <figcaption className="mt-2.5 text-xs font-medium text-ink">
                 {r.name}
               </figcaption>
             </figure>
           ))}
         </div>
       </div>
-    </section>
+    </div>
   );
 }

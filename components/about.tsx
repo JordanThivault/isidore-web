@@ -4,7 +4,7 @@ export function About() {
   return (
     <section
       id="a-propos"
-      className="flex min-h-[50svh] items-center border-b border-line bg-paper"
+      className="flex min-h-[50svh] items-center border-b border-line bg-paper-2"
     >
       <div className="container-x w-full py-14 md:py-16">
         {/* Eyebrow en haut à gauche, comme les autres sections */}

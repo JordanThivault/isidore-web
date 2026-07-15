@@ -1,6 +1,5 @@
 import { Navbar } from "@/components/navbar";
 import { Hero } from "@/components/hero";
-import { GoogleReviews } from "@/components/google-reviews";
 import { About } from "@/components/about";
 import { Realisations } from "@/components/realisations";
 import { PourQui } from "@/components/pour-qui";
@@ -16,11 +15,10 @@ export default function Home() {
       <main>
         <Hero />
         <About />
-        <Realisations />
         <PourQui />
-        <Pricing />
+        <Realisations />
         <Engagements />
-        <GoogleReviews />
+        <Pricing />
         <Contact />
       </main>
       <Footer />

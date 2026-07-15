@@ -29,16 +29,17 @@ export function PourQui() {
   return (
     <section
       id="pour-qui"
-      className="flex min-h-[80svh] items-center border-b border-line bg-paper"
+      className="flex min-h-[50svh] items-center border-b border-line bg-paper"
     >
       <div className="container-x w-full py-16 md:py-20">
         <p className="eyebrow mb-5">Site web créé en Indre-et-Loire et Sarthe</p>
         <h2 className="text-[clamp(2rem,4vw,3.25rem)]">Pour qui ?</h2>
         <p className="mt-5 max-w-2xl text-ink-soft">
-          Artisan, commerçant ou indépendant en Indre-et-Loire ou en Sarthe.
+          Artisan, commerçant ou indépendant en Indre-et-Loire ou en Sarthe, vous
+          êtes exactement la cible de ce que je fais.
         </p>
 
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4 md:mt-12">
+        <div className="mt-10 grid gap-6 sm:grid-cols-2 md:mt-12">
           {profils.map(({ icon: Icon, text }) => (
             <article
               key={text}
