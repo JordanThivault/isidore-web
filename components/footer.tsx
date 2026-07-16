@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Mail, Phone } from "lucide-react";
 import { Wordmark } from "@/components/wordmark";
+import { Bracket, Ring, Ticks } from "@/components/decor";
 
 const navigation = [
   { href: "#realisations", label: "Réalisations" },
@@ -29,13 +30,16 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-terracotta text-paper">
-      <div className="container-x py-16 md:py-20">
+    <footer className="relative overflow-hidden bg-terracotta text-paper">
+      {/* Décor géométrique — éclairci pour le fond terracotta */}
+      <Bracket corner="tr" className="right-5 top-10 text-paper/25" size={64} />
+      <Ring size={220} className="-left-24 -bottom-24 border-paper/15 hidden lg:block" />
+      <Ticks className="right-10 bottom-10 text-paper/25 hidden lg:flex" count={6} />
+
+      <div className="container-x relative py-16 md:py-20">
         <div className="grid gap-12 md:grid-cols-[1.3fr_1fr_1fr]">
           {/* Logo, accroche, contact */}
           <div>
-            {/* Force le wordmark en blanc : ses deux <span> ont leurs propres
-                couleurs (ink + terracotta), invisibles sur ce fond. */}
             <Wordmark className="[&>span]:text-paper" />
 
             <p className="mt-4 max-w-xs text-sm text-paper/70">

@@ -1,5 +1,6 @@
 import { Search, PhoneOff, Handshake, Rocket } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { Bracket, Ring, ThinLine, Crosshair } from "@/components/decor";
 
 type Profil = {
   icon: LucideIcon;
@@ -29,9 +30,15 @@ export function PourQui() {
   return (
     <section
       id="pour-qui"
-      className="flex min-h-[50svh] items-center border-b border-line bg-paper"
+      className="relative flex min-h-[50svh] items-center overflow-hidden border-b border-line bg-paper"
     >
-      <div className="container-x w-full py-16 md:py-20">
+      {/* Décor géométrique */}
+      <Bracket corner="tr" className="right-4 top-10 hidden md:block" size={64} />
+      <Ring size={180} className="-left-20 bottom-10 hidden opacity-70 lg:block" />
+      <ThinLine className="left-0 top-1/4 w-16 lg:w-28" />
+      <Crosshair className="right-10 bottom-16 hidden lg:block" />
+
+      <div className="container-x relative w-full py-16 md:py-20">
         <p className="eyebrow mb-5">Site web créé en Indre-et-Loire et Sarthe</p>
         <h2 className="text-[clamp(2rem,4vw,3.25rem)]">Pour qui ?</h2>
         <p className="mt-5 max-w-2xl text-ink-soft">

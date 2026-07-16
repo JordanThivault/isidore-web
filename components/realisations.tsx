@@ -1,66 +1,87 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { projects } from "@/data/projects";
+import { Bracket, Ring, ThinLineY, Ticks } from "@/components/decor";
+
+/**
+ * Infos complémentaires par slug, gardées ici pour ne pas toucher
+ * à data/projects.ts.
+ */
+const extras: Record<string, { details?: string[] }> = {
+  "domaine-viticole": {
+    details: [
+      "Catalogue produits et paiement en ligne sécurisé",
+      "Déclarations réglementaires liées à la vente d'alcool",
+      "Design fidèle à l'identité du domaine",
+      "Optimisé pour le référencement local",
+    ],
+  },
+};
 
 export function Realisations() {
-  const trackRef = useRef<HTMLDivElement>(null);
+  // Boucle infinie : on cadre la vraie liste par un clone du dernier projet
+  // au début et un clone du premier à la fin. Quand on atteint un clone, on
+  // saute sans animation vers la vraie carte équivalente.
+  const slides = [projects[projects.length - 1], ...projects, projects[0]];
 
-  // Défile d'une carte vers la gauche (-1) ou la droite (+1).
-  const scrollByCard = (dir: number) => {
-    const el = trackRef.current;
-    if (!el) return;
-    const card = el.querySelector<HTMLElement>("[data-card]");
-    const gap = 24; // gap-6
-    const amount = card ? card.offsetWidth + gap : el.clientWidth * 0.8;
-    el.scrollBy({ left: dir * amount, behavior: "smooth" });
+  const [index, setIndex] = useState(1);
+  const [animate, setAnimate] = useState(true);
+  const lockRef = useRef(false);
+  const pausedRef = useRef(false);
+
+  const go = (dir: number) => {
+    if (lockRef.current) return;
+    lockRef.current = true;
+    setAnimate(true);
+    setIndex((i) => i + dir);
   };
 
-  // Rotation automatique (pause au survol / focus), désactivée si l'utilisateur
-  // préfère réduire les animations.
+  // Défilement automatique, en pause au survol / focus clavier.
   useEffect(() => {
-    const el = trackRef.current;
-    if (!el) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    let paused = false;
-    const pause = () => (paused = true);
-    const resume = () => (paused = false);
-    el.addEventListener("pointerenter", pause);
-    el.addEventListener("pointerleave", resume);
-    el.addEventListener("focusin", pause);
-    el.addEventListener("focusout", resume);
-
     const id = window.setInterval(() => {
-      if (paused) return;
-      const maxScroll = el.scrollWidth - el.clientWidth;
-      if (el.scrollLeft >= maxScroll - 4) {
-        el.scrollTo({ left: 0, behavior: "smooth" });
-      } else {
-        scrollByCard(1);
-      }
-    }, 3500);
-
-    return () => {
-      window.clearInterval(id);
-      el.removeEventListener("pointerenter", pause);
-      el.removeEventListener("pointerleave", resume);
-      el.removeEventListener("focusin", pause);
-      el.removeEventListener("focusout", resume);
-    };
+      if (!pausedRef.current) go(1);
+    }, 5000);
+    return () => window.clearInterval(id);
   }, []);
 
-  // Largeur d'une carte selon le viewport (1 / 2 / 3 visibles).
-  const slideWidth = "w-[82%] shrink-0 snap-start sm:w-[46%] lg:w-[31.5%]";
+  const handleTransitionEnd = () => {
+    lockRef.current = false;
+    if (index === slides.length - 1) {
+      setAnimate(false);
+      setIndex(1);
+    } else if (index === 0) {
+      setAnimate(false);
+      setIndex(projects.length);
+    }
+  };
+
+  // Si on vient de sauter sans animation, aucun transitionend ne se déclenche :
+  // on relâche le verrou manuellement.
+  useEffect(() => {
+    if (!animate) {
+      lockRef.current = false;
+      // Réactive l'animation au tick suivant pour le prochain déplacement.
+      const id = window.requestAnimationFrame(() => setAnimate(true));
+      return () => window.cancelAnimationFrame(id);
+    }
+  }, [animate]);
 
   return (
     <section
       id="realisations"
-      className="flex min-h-svh items-center border-b border-line bg-paper-2"
+      className="relative flex min-h-svh items-center overflow-hidden border-b border-line bg-paper-2"
     >
-      <div className="container-x w-full py-20 md:py-24">
+      {/* Décor géométrique */}
+      <Bracket corner="tl" className="left-4 top-12 hidden md:block" size={64} />
+      <Ring size={190} className="-right-20 top-1/4 hidden opacity-60 lg:block" />
+      <ThinLineY className="left-1/3 bottom-0 h-16 hidden lg:block" />
+      <Ticks className="bottom-12 left-8 hidden lg:flex" count={5} />
+
+      <div className="container-x relative w-full py-20 md:py-24">
         <p className="eyebrow mb-5">Réalisations</p>
         <h2 className="text-[clamp(1.75rem,3.2vw,2.5rem)] md:whitespace-nowrap">
           Des sites conçus sur-mesure.
@@ -70,90 +91,117 @@ export function Realisations() {
         <div className="mt-8 flex justify-end gap-2">
           <button
             type="button"
-            onClick={() => scrollByCard(-1)}
+            onClick={() => go(-1)}
             aria-label="Réalisation précédente"
-            className="flex h-10 w-10 items-center justify-center rounded-md border border-line-strong text-ink transition-colors hover:bg-paper-2"
+            className="flex h-10 w-10 items-center justify-center rounded-md border border-line-strong text-ink transition-colors hover:bg-paper"
           >
             <ChevronLeft size={18} />
           </button>
           <button
             type="button"
-            onClick={() => scrollByCard(1)}
+            onClick={() => go(1)}
             aria-label="Réalisation suivante"
-            className="flex h-10 w-10 items-center justify-center rounded-md border border-line-strong text-ink transition-colors hover:bg-paper-2"
+            className="flex h-10 w-10 items-center justify-center rounded-md border border-line-strong text-ink transition-colors hover:bg-paper"
           >
             <ChevronRight size={18} />
           </button>
         </div>
 
-        {/* Piste du carrousel */}
+        {/* Fenêtre du carrousel */}
         <div
-          ref={trackRef}
-          className="mt-6 flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="mt-6 overflow-hidden"
+          onPointerEnter={() => (pausedRef.current = true)}
+          onPointerLeave={() => (pausedRef.current = false)}
+          onFocus={() => (pausedRef.current = true)}
+          onBlur={() => (pausedRef.current = false)}
         >
-          {projects.map((project) => {
-            const card = (
-              <article className="group flex h-full w-full flex-col overflow-hidden rounded-card border border-line bg-paper transition-colors hover:border-line-strong">
-                <div className="relative aspect-[16/10] overflow-hidden bg-paper-2">
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    fill
-                    sizes="(max-width: 640px) 82vw, (max-width: 1024px) 46vw, 340px"
-                    className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                  />
-                  <div className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center text-xs text-muted">
-                    Capture à ajouter
-                  </div>
-                </div>
+          {/* Piste : largeur = N × la fenêtre, on translate d'une fenêtre à la fois */}
+          <div
+            onTransitionEnd={handleTransitionEnd}
+            className="flex"
+            style={{
+              width: `${slides.length * 100}%`,
+              transform: `translateX(-${index * (100 / slides.length)}%)`,
+              transition: animate ? "transform 500ms ease" : "none",
+            }}
+          >
+            {slides.map((project, i) => {
+              const details = extras[project.slug]?.details;
 
-                <div className="flex flex-1 flex-col p-6">
-                  <h3 className="text-xl leading-snug">{project.title}</h3>
-                  <p className="mt-3 flex-1 text-sm text-ink-soft">
-                    {project.summary}
-                  </p>
-
-                  <div className="mt-5 flex flex-wrap items-center gap-2">
-                    {project.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-full border border-line px-2.5 py-1 text-xs text-muted"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  {project.url && (
-                    <span className="mt-5 inline-flex items-center gap-1 text-sm font-medium text-terracotta">
-                      Voir le projet
-                      <ArrowUpRight
-                        size={16}
-                        className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              return (
+                <div
+                  key={`${project.slug}-${i}`}
+                  style={{ width: `${100 / slides.length}%` }}
+                  className="flex-none"
+                >
+                  <article className="grid overflow-hidden rounded-card border border-line bg-paper md:grid-cols-[0.85fr_1fr]">
+                    {/* Capture pleine page : format portrait conservé */}
+                    <div className="relative h-[38svh] overflow-hidden bg-paper-2 md:h-[52svh]">
+                      <Image
+                        src={project.image}
+                        alt={project.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 40vw"
+                        className="object-cover object-top"
+                        priority={i === 1}
                       />
-                    </span>
-                  )}
-                </div>
-              </article>
-            );
+                    </div>
 
-            return project.url ? (
-              <a
-                key={project.slug}
-                data-card
-                href={project.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={slideWidth}
-              >
-                {card}
-              </a>
-            ) : (
-              <div key={project.slug} data-card className={slideWidth}>
-                {card}
-              </div>
-            );
-          })}
+                    {/* Texte à droite */}
+                    <div className="flex flex-col justify-center p-6 md:p-10">
+                      <div className="flex flex-wrap items-center gap-2">
+                        {project.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="rounded-full border border-line px-2.5 py-1 text-xs text-muted"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+
+                      <h3 className="mt-4 text-xl leading-snug md:text-2xl">
+                        {project.title}
+                      </h3>
+                      <p className="mt-3 text-sm text-ink-soft">{project.summary}</p>
+
+                      {details && (
+                        <ul className="mt-5 space-y-2">
+                          {details.map((point) => (
+                            <li
+                              key={point}
+                              className="flex items-start gap-2.5 text-sm text-ink-soft"
+                            >
+                              <span
+                                className="mt-1.5 h-1.5 w-1.5 flex-none rounded-full bg-terracotta"
+                                aria-hidden
+                              />
+                              {point}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+
+                      {project.url && (
+                        <a
+                          href={project.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group mt-6 inline-flex items-center gap-1.5 self-start text-sm font-medium text-terracotta"
+                        >
+                          Voir le site en ligne
+                          <ArrowUpRight
+                            size={16}
+                            className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                          />
+                        </a>
+                      )}
+                    </div>
+                  </article>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

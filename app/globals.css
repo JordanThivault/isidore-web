@@ -35,6 +35,15 @@
   /* Typo */
   --font-display: var(--font-bricolage), "Segoe UI", system-ui, sans-serif;
   --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-signature: var(--font-caveat), cursive;
+
+    /* Animations du décor */
+  --animate-float: float 4s ease-in-out infinite;
+  --animate-float-slow: float 15s ease-in-out infinite;
+  --animate-drift: drift 8s ease-in-out infinite;
+  --animate-spin-slow: spin 45s linear infinite;
+  --animate-pulse-soft: pulse-soft 7s ease-in-out infinite;
+  --animate-draw: draw 1.8s ease-out forwards;
 
   /* Rayons */
   --radius-card: 0.75rem;
@@ -81,6 +90,48 @@
     border-radius: 2px;
   }
 }
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-24px); }
+}
+ 
+@keyframes drift {
+    0%, 100% { transform: translate(0, 0); }
+    33% { transform: translate(10px, -12px); }
+    66% { transform: translate(-8px, 8px); }
+}
+ 
+@keyframes pulse-soft {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+ 
+/* Tracé qui se dessine — nécessite pathLength="1" sur le <path> */
+@keyframes draw {
+  from {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+  }
+}
+ 
+/* Garde-fou accessibilité : coupe toute animation du décor */
+@media (prefers-reduced-motion: reduce) {
+  .decor,
+  .decor * {
+    animation: none !important;
+  }
+}
+ 
 
 /* Utilitaires maison réutilisés dans les sections */
 @layer components {

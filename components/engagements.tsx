@@ -1,5 +1,6 @@
 import { Wallet, Gauge, ShieldCheck, UserRound, ListChecks } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { Bracket, Square, ThinLineY, Ticks } from "@/components/decor";
 
 type Engagement = {
   icon: LucideIcon;
@@ -39,9 +40,15 @@ export function Engagements() {
   return (
     <section
       id="engagements"
-      className="flex min-h-[80svh] items-center border-b border-line bg-paper"
+      className="relative flex min-h-[80svh] items-center overflow-hidden border-b border-line bg-paper"
     >
-      <div className="container-x w-full py-16 md:py-20">
+      {/* Décor géométrique */}
+      <Bracket corner="bl" className="bottom-10 left-4 hidden md:block" size={64} />
+      <Square size={90} rotate={14} className="-right-6 top-16 hidden opacity-70 lg:block" />
+      <ThinLineY className="right-1/4 top-0 h-14 hidden lg:block" />
+      <Ticks className="right-8 bottom-14 hidden lg:flex" count={5} />
+
+      <div className="container-x relative w-full py-16 md:py-20">
         <p className="eyebrow mb-5">Mes engagements</p>
         <h2 className="text-[clamp(2rem,4vw,3.25rem)]">
           Ce sur quoi vous pouvez compter.
