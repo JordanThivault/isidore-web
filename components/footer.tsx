@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Mail, Phone } from "lucide-react";
 import { Wordmark } from "@/components/wordmark";
 import { Bracket, Ring, Ticks } from "@/components/decor";
+import { DecorReveal } from "@/components/decor-reveal";
 
 const navigation = [
   { href: "#realisations", label: "Réalisations" },
@@ -31,10 +32,12 @@ export function Footer() {
 
   return (
     <footer className="relative overflow-hidden bg-terracotta text-paper">
-      {/* Décor géométrique — éclairci pour le fond terracotta */}
-      <Bracket corner="tr" className="right-5 top-10 text-paper/25" size={64} />
-      <Ring size={220} className="-left-24 -bottom-24 border-paper/15 hidden lg:block" />
-      <Ticks className="right-10 bottom-10 text-paper/25 hidden lg:flex" count={6} />
+      {/* Décor géométrique — éclairci pour le fond terracotta, se trace au scroll */}
+      <DecorReveal>
+        <Bracket corner="tr" className="right-5 top-10 text-paper/25" size={64} draw />
+        <Ring size={220} className="-left-24 -bottom-24 text-paper/15 hidden lg:block" draw delay={200} />
+        <Ticks className="right-10 bottom-10 text-paper/25 hidden lg:flex" count={6} />
+      </DecorReveal>
 
       <div className="container-x relative py-16 md:py-20">
         <div className="grid gap-12 md:grid-cols-[1.3fr_1fr_1fr]">
@@ -43,7 +46,7 @@ export function Footer() {
             <Wordmark className="[&>span]:text-paper" />
 
             <p className="mt-4 max-w-xs text-sm text-paper/70">
-              Isidore de Séville, patron des internautes. Des sites web
+              Des sites web
               sur-mesure pour les artisans et PME d&apos;Indre-et-Loire et de
               la Sarthe.
             </p>

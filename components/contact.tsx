@@ -9,21 +9,22 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Bracket, Ring, ThinLine, Crosshair, Square } from "@/components/decor";
+import { DecorReveal } from "@/components/decor-reveal";
 import { Stamp } from "@/components/stamp";
 
 const initialState: ContactState = { ok: false };
 
-/** Décor commun aux deux états de la section. */
+/** Décor commun aux deux états de la section — se trace au scroll. */
 function Decor() {
   return (
-    <>
-      <Bracket corner="tl" className="left-4 top-12 hidden md:block" size={64} />
-      <Bracket corner="br" className="bottom-12 right-4 hidden md:block" size={64} />
-      <Ring size={200} className="-right-20 bottom-16 hidden opacity-60 lg:block" />
-      <Square size={70} rotate={-10} className="left-10 bottom-20 hidden opacity-70 lg:block" />
-      <ThinLine className="right-0 top-1/4 w-20 lg:w-32" />
-      <Crosshair className="left-1/3 top-10 hidden lg:block" />
-    </>
+    <DecorReveal>
+      <Bracket corner="tl" className="left-4 top-12 hidden md:block" size={64} draw />
+      <Bracket corner="br" className="bottom-12 right-4 hidden md:block" size={64} draw delay={150} />
+      <Ring size={200} className="-right-20 bottom-16 hidden opacity-60 lg:block" draw delay={300} />
+      <Square size={70} rotate={-10} className="left-10 bottom-20 hidden opacity-70 lg:block" draw delay={450} />
+      <ThinLine className="right-0 top-1/4 w-20 lg:w-32" draw delay={200} />
+      <Crosshair className="left-1/3 top-10 hidden lg:block" draw delay={550} />
+    </DecorReveal>
   );
 }
 
@@ -60,7 +61,7 @@ export function Contact() {
       <div className="container-x relative grid items-center gap-10 py-16 md:grid-cols-[1fr_1.1fr] md:py-20 lg:grid-cols-[1fr_1.1fr_auto] lg:gap-12">
         <div className="max-w-md">
           <p className="eyebrow mb-5">Contact</p>
-          <h2 className="text-[clamp(2rem,3.5vw,3rem)]">
+          <h2 className="text-[clamp(2rem,4vw,3.25rem)]">
             Un projet en tête ? Parlons-en.
           </h2>
           <p className="mt-5 text-ink-soft">

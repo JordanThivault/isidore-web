@@ -5,6 +5,7 @@ import Image from "next/image";
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { projects } from "@/data/projects";
 import { Bracket, Ring, ThinLineY, Ticks } from "@/components/decor";
+import { DecorReveal } from "@/components/decor-reveal";
 
 /**
  * Infos complémentaires par slug, gardées ici pour ne pas toucher
@@ -73,17 +74,19 @@ export function Realisations() {
   return (
     <section
       id="realisations"
-      className="relative flex min-h-svh items-center overflow-hidden border-b border-line bg-paper-2"
+      className="relative overflow-hidden border-b border-line bg-paper-2"
     >
-      {/* Décor géométrique */}
-      <Bracket corner="tl" className="left-4 top-12 hidden md:block" size={64} />
-      <Ring size={190} className="-right-20 top-1/4 hidden opacity-60 lg:block" />
-      <ThinLineY className="left-1/3 bottom-0 h-16 hidden lg:block" />
-      <Ticks className="bottom-12 left-8 hidden lg:flex" count={5} />
+      {/* Décor géométrique — se trace quand la section entre dans le viewport */}
+      <DecorReveal>
+        <Bracket corner="tl" className="left-4 top-12 hidden md:block" size={64} draw />
+        <Ring size={190} className="-right-20 top-1/4 hidden opacity-60 lg:block" draw delay={150} />
+        <ThinLineY className="left-1/3 bottom-0 h-16 hidden lg:block" draw delay={300} />
+        <Ticks className="bottom-12 left-8 hidden lg:flex" count={5} />
+      </DecorReveal>
 
-      <div className="container-x relative w-full py-20 md:py-24">
+      <div className="container-x relative w-full py-16 md:py-20">
         <p className="eyebrow mb-5">Réalisations</p>
-        <h2 className="text-[clamp(1.75rem,3.2vw,2.5rem)] md:whitespace-nowrap">
+        <h2 className="text-[clamp(2rem,4vw,3.25rem)] md:whitespace-nowrap">
           Des sites conçus sur-mesure.
         </h2>
 
@@ -136,7 +139,7 @@ export function Realisations() {
                 >
                   <article className="grid overflow-hidden rounded-card border border-line bg-paper md:grid-cols-[0.85fr_1fr]">
                     {/* Capture pleine page : format portrait conservé */}
-                    <div className="relative h-[38svh] overflow-hidden bg-paper-2 md:h-[52svh]">
+                    <div className="relative h-[30svh] overflow-hidden bg-paper-2 md:h-[40svh]">
                       <Image
                         src={project.image}
                         alt={project.title}

@@ -1,6 +1,7 @@
-import { Wallet, Gauge, ShieldCheck, UserRound, ListChecks } from "lucide-react";
+import { Wallet, Gauge, ShieldCheck, ListChecks } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { Bracket, Square, ThinLineY, Ticks } from "@/components/decor";
+import { Bracket, Square, Ticks } from "@/components/decor";
+import { DecorReveal } from "@/components/decor-reveal";
 
 type Engagement = {
   icon: LucideIcon;
@@ -8,11 +9,20 @@ type Engagement = {
   body: string;
 };
 
+/**
+ * "Un seul interlocuteur" est passé dans le paragraphe d'intro (colonne de
+ * gauche) plutôt que dans cette liste — 4 points en timeline, pas 5.
+ */
 const engagements: Engagement[] = [
   {
+    icon: ListChecks,
+    title: "Un point à chaque étape",
+    body: "Vous savez toujours où en est votre projet, jamais dans le flou.",
+  },
+  {
     icon: Wallet,
-    title: "Pas de frais serveur imprévus",
-    body: "Hébergement moderne, coût de maintenance faible et prévisible dès le départ.",
+    title: "Pas de frais imprévus",
+    body: "Hébergement, nom de domaine, outils : tout est clair dès le départ.",
   },
   {
     icon: Gauge,
@@ -24,53 +34,76 @@ const engagements: Engagement[] = [
     title: "Vos données respectées",
     body: "Aucune revente, aucun tracker publicitaire installé sans votre accord.",
   },
-  {
-    icon: UserRound,
-    title: "Un seul interlocuteur",
-    body: "Vous me parlez à moi, du devis à la maintenance.",
-  },
-  {
-    icon: ListChecks,
-    title: "Un point à chaque étape",
-    body: "Vous savez toujours où en est votre projet, jamais dans le flou.",
-  },
 ];
 
 export function Engagements() {
   return (
     <section
       id="engagements"
-      className="relative flex min-h-[80svh] items-center overflow-hidden border-b border-line bg-paper"
+      className="relative overflow-hidden border-b border-line bg-paper"
     >
-      {/* Décor géométrique */}
-      <Bracket corner="bl" className="bottom-10 left-4 hidden md:block" size={64} />
-      <Square size={90} rotate={14} className="-right-6 top-16 hidden opacity-70 lg:block" />
-      <ThinLineY className="right-1/4 top-0 h-14 hidden lg:block" />
-      <Ticks className="right-8 bottom-14 hidden lg:flex" count={5} />
+      {/* Décor géométrique — se trace quand la section entre dans le viewport */}
+      <DecorReveal>
+        <Bracket corner="tl" className="left-4 top-8 hidden md:block" size={64} draw />
+        <Square
+          size={64}
+          rotate={14}
+          className="-right-4 bottom-10 hidden opacity-70 lg:block"
+          draw
+          delay={250}
+        />
+      </DecorReveal>
 
-      <div className="container-x relative w-full py-16 md:py-20">
-        <p className="eyebrow mb-5">Mes engagements</p>
-        <h2 className="text-[clamp(2rem,4vw,3.25rem)]">
-          Ce sur quoi vous pouvez compter.
-        </h2>
+      <div className="container-x relative grid gap-12 py-20 md:grid-cols-2 md:gap-16 md:py-24">
+        {/* Colonne gauche — intro, "un seul interlocuteur" y est dit en toutes lettres */}
+        <div>
+          <p className="eyebrow mb-5">Mes engagements</p>
+          <h2 className="text-[clamp(2rem,4vw,3.25rem)]">
+            Des garanties simples.
+          </h2>
+          <p className="mt-6 max-w-sm text-ink-soft">
+            Un seul interlocuteur, du premier échange à la mise en ligne :
+            vous me parlez directement, jamais à un ticket support ou un
+            compte générique.
+          </p>
 
-        <div className="mt-10 grid gap-5 sm:grid-cols-2 md:mt-12 lg:grid-cols-5">
-          {engagements.map(({ icon: Icon, title, body }) => (
-            <article
-              key={title}
-              className="group flex flex-col rounded-card border border-line bg-paper-2 p-5 transition-colors duration-300 hover:border-terracotta hover:bg-terracotta"
-            >
-              <span className="flex h-10 w-10 flex-none items-center justify-center rounded-md border border-line bg-paper text-terracotta transition-colors duration-300 group-hover:border-white/25 group-hover:bg-white/10 group-hover:text-paper">
-                <Icon size={18} strokeWidth={1.75} />
-              </span>
-              <h3 className="mt-4 text-base font-semibold text-ink transition-colors duration-300 group-hover:text-paper">
-                {title}
-              </h3>
-              <p className="mt-1.5 text-sm leading-relaxed text-ink-soft transition-colors duration-300 group-hover:text-paper/90">
-                {body}
-              </p>
-            </article>
-          ))}
+          {/* Petit repère décoratif, en flux normal (pas en absolu comme le
+              reste du décor de la section) — donc le twMerge dans cn()
+              écrase "absolute" par "relative" via className. */}
+          <Ticks className="relative mt-10" count={3} />
+        </div>
+
+        {/* Colonne droite — timeline verticale à 4 points */}
+        <div className="relative">
+          {/* Trait continu derrière les puces ; les puces (bg-paper) le masquent
+              par-dessus, ce qui donne l'effet de ligne qui traverse chaque point. */}
+          <div
+            aria-hidden
+            className="absolute left-6 top-6 bottom-6 w-px bg-line md:left-7"
+          />
+
+          <ul className="space-y-10">
+            {engagements.map(({ icon: Icon, title, body }) => (
+              <li key={title} className="relative flex items-start gap-5">
+                {/* Rond avec flip 3D au survol : face avant claire, face
+                    arrière terracotta — même icône des deux côtés. */}
+                <div className="relative z-10 h-12 w-12 flex-none [perspective:800px] md:h-14 md:w-14">
+                  <div className="relative h-full w-full transition-transform duration-500 ease-out [transform-style:preserve-3d] hover:[transform:rotateY(180deg)] motion-reduce:transition-none motion-reduce:hover:[transform:none]">
+                    <span className="absolute inset-0 flex items-center justify-center rounded-full border border-line-strong bg-paper text-terracotta [backface-visibility:hidden]">
+                      <Icon size={20} strokeWidth={1.75} />
+                    </span>
+                    <span className="absolute inset-0 flex items-center justify-center rounded-full bg-terracotta text-paper [backface-visibility:hidden] [transform:rotateY(180deg)]">
+                      <Icon size={20} strokeWidth={1.75} />
+                    </span>
+                  </div>
+                </div>
+                <div className="pt-2.5 md:pt-3.5">
+                  <h3 className="text-lg leading-snug">{title}</h3>
+                  <p className="mt-1.5 text-sm text-ink-soft">{body}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>

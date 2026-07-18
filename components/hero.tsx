@@ -28,50 +28,93 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative flex min-h-[calc(110svh-4rem)] flex-col justify-center overflow-hidden border-b border-line bg-paper py-8 md:py-10"
+      className="relative flex min-h-[calc(110svh-4rem)] flex-col justify-center overflow-hidden border-b border-line bg-paper pb-8 pt-24 md:py-10"
     >
-      {/* Décor géométrique */}
+      {/* Décor géométrique — la plupart des formes se tracent à l'arrivée
+          (prop draw), avec un délai croissant pour un effet de vague plutôt
+          qu'un "tout apparaît d'un coup". Les anneaux gardent en plus un
+          mouvement continu une fois tracés. */}
       <Bracket
         corner="tl"
-        className="left-4 top-16 hidden text-terracotta/40 md:block"
+        className="left-4 top-16 hidden text-terracotta/50 md:block"
         size={72}
-        strokeWidth={1.5}
         draw
       />
       <Bracket
         corner="br"
-        className="bottom-16 right-4 hidden text-terracotta/40 lg:block"
+        className="bottom-16 right-4 hidden text-terracotta/50 lg:block"
         size={72}
-        strokeWidth={1.5}
         draw
+        delay={150}
       />
       <Ring
         size={240}
-        className="-right-24 top-10 hidden animate-float-slow border-line-strong lg:block"
+        className="-right-24 top-10 hidden text-line-strong animate-float-slow lg:block"
+        draw
+        delay={100}
       />
       <Ring
         size={90}
-        className="right-1/4 top-8 hidden animate-drift border-terracotta/30 lg:block"
+        className="right-1/4 top-8 hidden text-terracotta/40 animate-drift lg:block"
+        draw
+        delay={500}
       />
-      <Arc size={160} className="-left-10 bottom-1/4 hidden text-line-strong lg:block" />
+      <Arc
+        size={160}
+        className="-left-10 bottom-1/4 hidden text-line-strong lg:block"
+        draw
+        delay={250}
+      />
       <Square
         size={70}
         rotate={-14}
-        className="left-1/4 bottom-10 hidden animate-float border-terracotta/25 lg:block"
+        className="left-1/4 bottom-10 hidden text-terracotta/35 lg:block"
+        animate="float"
+        draw
+        delay={350}
       />
-      <ThinLine className="right-0 top-1/3 w-24 bg-line-strong lg:w-40" />
-      <ThinLine className="left-0 bottom-1/3 w-16 bg-terracotta/30 lg:w-28" />
-      <ThinLineY className="left-1/3 top-0 hidden h-20 bg-line-strong lg:block" />
+      <ThinLine
+        className="right-0 top-1/3 w-24 bg-line-strong lg:w-40"
+        draw
+        delay={200}
+      />
+      <ThinLine
+        className="left-0 bottom-1/3 w-16 bg-terracotta/40 lg:w-28"
+        draw
+        delay={450}
+      />
+      <ThinLineY
+        className="left-1/3 top-0 hidden h-20 bg-line-strong lg:block"
+        draw
+        delay={300}
+      />
       <Diagonal
         length={140}
         angle={-38}
-        className="right-1/3 top-6 hidden bg-terracotta/25 lg:block"
+        className="right-1/3 top-6 hidden lg:block"
+        draw
+        delay={400}
       />
       <Ticks className="bottom-24 left-6 hidden animate-pulse-soft lg:flex" count={6} />
       <Dots className="right-10 top-1/2 hidden text-line-strong lg:grid" cols={5} rows={5} />
-      <Crosshair className="right-16 bottom-32 hidden animate-pulse-soft lg:block" size={16} />
-      <Crosshair className="left-12 top-1/3 hidden lg:block" size={12} />
-      <Plus className="left-1/2 bottom-16 hidden text-terracotta/40 lg:block" size={12} />
+      <Crosshair
+        className="right-16 bottom-32 hidden text-terracotta/60 animate-pulse-soft lg:block"
+        size={16}
+        draw
+        delay={550}
+      />
+      <Crosshair
+        className="left-12 top-1/3 hidden text-terracotta/60 lg:block"
+        size={12}
+        draw
+        delay={600}
+      />
+      <Plus
+        className="left-1/2 bottom-16 hidden text-terracotta/50 lg:block"
+        size={12}
+        draw
+        delay={650}
+      />
 
       {/* Bloc principal */}
       <div className="container-x relative grid w-full items-center gap-8 md:grid-cols-[1fr_1.2fr] md:gap-5">

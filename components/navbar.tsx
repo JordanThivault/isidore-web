@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { Wordmark } from "@/components/wordmark";
@@ -9,14 +9,15 @@ import { cn } from "@/lib/utils";
 
 const links = [
   { href: "#realisations", label: "Réalisations" },
-  { href: "#tarifs", label: "Tarifs" },
   { href: "#engagements", label: "Mes engagements" },
+  { href: "#tarifs", label: "Tarifs" },
   { href: "#contact", label: "Contact" },
 ];
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
 
   // Transparente en haut du hero (clair), puis fond crème + ombre au scroll.
   useEffect(() => {
@@ -26,10 +27,34 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Ferme le menu mobile au clic en dehors (ou à l'échap), en plus du bouton
+  // croix et du clic sur un lien — histoire de ne pas obliger à viser la
+  // croix pour sortir du menu.
+  useEffect(() => {
+    if (!open) return;
+
+    const handlePointerDown = (e: PointerEvent) => {
+      if (headerRef.current && !headerRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    };
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+
+    document.addEventListener("pointerdown", handlePointerDown);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", handlePointerDown);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [open]);
+
   const solid = scrolled || open;
 
   return (
     <header
+      ref={headerRef}
       className={cn(
         "fixed inset-x-0 top-0 z-50 text-ink transition-colors duration-300",
         solid

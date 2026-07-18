@@ -1,4 +1,5 @@
 import { Bracket, Ring, ThinLine, Crosshair } from "@/components/decor";
+import { DecorReveal } from "@/components/decor-reveal";
 
 export function Pricing() {
   return (
@@ -6,12 +7,14 @@ export function Pricing() {
       id="tarifs"
       className="relative flex min-h-[60svh] items-center overflow-hidden border-b border-line bg-terracotta"
     >
-      {/* Décor géométrique — éclairci pour le fond terracotta */}
-      <Bracket corner="tl" className="left-5 top-10 text-paper/30" size={64} />
-      <Bracket corner="br" className="bottom-10 right-5 text-paper/30" size={64} />
-      <Ring size={190} className="-right-16 -top-12 border-paper/20 hidden lg:block" />
-      <ThinLine className="left-0 bottom-1/3 w-16 bg-paper/25 lg:w-32" />
-      <Crosshair className="left-14 bottom-12 text-paper/40 hidden lg:block" />
+      {/* Décor géométrique — éclairci pour le fond terracotta, se trace au scroll */}
+      <DecorReveal>
+        <Bracket corner="tl" className="left-5 top-10 text-paper/30" size={64} draw />
+        <Bracket corner="br" className="bottom-10 right-5 text-paper/30" size={64} draw delay={150} />
+        <Ring size={190} className="-right-16 -top-12 text-paper/20 hidden lg:block" draw delay={300} />
+        <ThinLine className="left-0 bottom-1/3 w-16 bg-paper/25 lg:w-32" draw delay={450} />
+        <Crosshair className="left-14 bottom-12 text-paper/40 hidden lg:block" draw delay={600} />
+      </DecorReveal>
 
       <div className="container-x relative w-full py-16 md:py-20">
         {/* Eyebrow en haut à gauche, comme les autres sections */}

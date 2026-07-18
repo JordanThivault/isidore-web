@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Bracket, Ring, ThinLineY, Crosshair } from "@/components/decor";
+import { DecorReveal } from "@/components/decor-reveal";
 
 export function About() {
   return (
@@ -7,11 +8,13 @@ export function About() {
       id="a-propos"
       className="relative min-h-[50svh] overflow-hidden border-b border-line bg-paper-2"
     >
-      {/* Décor géométrique */}
-      <Bracket corner="br" className="bottom-8 right-4 hidden lg:block" size={72} />
-      <Ring size={170} className="-left-20 bottom-8 hidden opacity-70 lg:block" />
-      <ThinLineY className="right-1/4 bottom-0 h-14 hidden lg:block" />
-      <Crosshair className="left-10 bottom-28 hidden lg:block" />
+      {/* Décor géométrique — se trace quand la section entre dans le viewport */}
+      <DecorReveal>
+        <Bracket corner="br" className="bottom-8 right-4 hidden lg:block" size={72} draw />
+        <Ring size={170} className="-left-20 bottom-8 hidden opacity-70 lg:block" draw delay={150} />
+        <ThinLineY className="right-1/4 bottom-0 h-14 hidden lg:block" draw delay={300} />
+        <Crosshair className="left-10 bottom-28 hidden lg:block" draw delay={450} />
+      </DecorReveal>
 
       {/* Pas de padding haut sur le conteneur : il est reporté sur l'eyebrow et
           le texte, pour que la photo puisse toucher le bord haut de la section. */}
@@ -32,7 +35,7 @@ export function About() {
 
         {/* Texte — à droite */}
         <div className="pt-0 md:pt-16">
-          <h2 className="text-[clamp(2rem,3.5vw,3rem)]">
+          <h2 className="text-[clamp(2rem,4vw,3.25rem)]">
             Bonjour, moi c&apos;est <span className="text-terracotta">Jordan</span>.
           </h2>
 
