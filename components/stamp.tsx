@@ -1,4 +1,4 @@
-import { Feather } from "lucide-react";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 /**
@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
  */
 export function Stamp({
   className,
-  text = "Développeur web · À votre écoute · ",
+  text = " devis gratuit · À votre écoute · ",
   repeat = 2,
 }: {
   className?: string;
@@ -18,14 +18,11 @@ export function Stamp({
   repeat?: number;
 }) {
   return (
-    <div
-      aria-hidden
-      className={cn("relative h-32 w-32 flex-none md:h-40 md:w-40", className)}
-    >
+    <div aria-hidden className={cn("relative h-32 w-32 flex-none md:h-40 md:w-40", className)}>
       {/* Anneau de texte tournant */}
       <svg
         viewBox="0 0 200 200"
-        className="h-full w-full animate-[spin_28s_linear_infinite] text-muted motion-reduce:animate-none"
+        className="text-muted h-full w-full animate-[spin_28s_linear_infinite] motion-reduce:animate-none"
       >
         <defs>
           <path
@@ -47,9 +44,15 @@ export function Stamp({
       </svg>
 
       {/* Cercle fin + pictogramme au centre */}
-      <span className="pointer-events-none absolute inset-[26%] rounded-full border border-line-strong" />
-      <span className="pointer-events-none absolute inset-0 flex items-center justify-center text-terracotta">
-        <Feather size={22} strokeWidth={1.5} />
+      <span className="border-line-strong pointer-events-none absolute inset-[26%] rounded-full border" />
+      <span className="pointer-events-none absolute inset-0 flex items-center justify-center">
+        <Image
+          src="/icon-source.png"
+          alt=""
+          width={40}
+          height={40}
+          className="h-10 w-12 object-contain"
+        />
       </span>
     </div>
   );

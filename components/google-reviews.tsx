@@ -42,10 +42,7 @@ type GoogleReviewsProps = {
  * suffira d'animer la piste (.reviews-track) en translateX et de dupliquer
  * le tableau `reviews` pour une boucle infinie.
  */
-export function GoogleReviews({
-  href,
-  reviews = placeholderReviews,
-}: GoogleReviewsProps) {
+export function GoogleReviews({ href, reviews = placeholderReviews }: GoogleReviewsProps) {
   return (
     <div className="container-x w-full">
       <div className="flex flex-wrap items-center justify-between gap-3">
@@ -56,7 +53,7 @@ export function GoogleReviews({
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm font-medium text-terracotta underline underline-offset-4 transition-colors hover:text-terracotta-soft"
+            className="text-terracotta hover:text-terracotta-soft text-sm font-medium underline underline-offset-4 transition-colors"
           >
             Voir tous les avis
           </a>
@@ -69,7 +66,7 @@ export function GoogleReviews({
           {reviews.map((r) => (
             <figure
               key={r.name}
-              className="flex flex-col rounded-card border border-line bg-paper p-3.5"
+              className="rounded-card border-line bg-paper flex flex-col border p-3.5"
             >
               <span className="flex items-center gap-0.5" aria-hidden>
                 {Array.from({ length: 5 }).map((_, i) => (
@@ -77,19 +74,15 @@ export function GoogleReviews({
                     key={i}
                     size={13}
                     className={
-                      i < r.rating
-                        ? "fill-terracotta text-terracotta"
-                        : "text-line-strong"
+                      i < r.rating ? "fill-terracotta text-terracotta" : "text-line-strong"
                     }
                   />
                 ))}
               </span>
-              <blockquote className="mt-2 flex-1 text-xs leading-relaxed text-ink-soft">
+              <blockquote className="text-ink-soft mt-2 flex-1 text-xs leading-relaxed">
                 {r.text}
               </blockquote>
-              <figcaption className="mt-2.5 text-xs font-medium text-ink">
-                {r.name}
-              </figcaption>
+              <figcaption className="text-ink mt-2.5 text-xs font-medium">{r.name}</figcaption>
             </figure>
           ))}
         </div>

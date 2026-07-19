@@ -18,11 +18,7 @@ export default function Home() {
         <Hero />
 
         <SectionLink>
-          <Arc
-            size={110}
-            className="left-10 top-1/2 -translate-y-1/2 text-terracotta/40"
-            draw
-          />
+          <Arc size={110} className="text-terracotta/40 top-1/2 left-10 -translate-y-1/2" draw />
         </SectionLink>
 
         <About />
@@ -31,7 +27,7 @@ export default function Home() {
           <Square
             size={56}
             rotate={14}
-            className="right-16 top-1/2 -translate-y-1/2 text-terracotta/40"
+            className="text-terracotta/40 top-1/2 right-16 -translate-y-1/2"
             animate="float"
             draw
           />
@@ -42,7 +38,7 @@ export default function Home() {
         <SectionLink>
           <Ring
             size={64}
-            className="left-1/3 top-1/2 -translate-y-1/2 text-line-strong animate-drift"
+            className="text-line-strong animate-drift top-1/2 left-1/3 -translate-y-1/2"
             draw
           />
         </SectionLink>
@@ -53,7 +49,7 @@ export default function Home() {
           <Square
             size={50}
             rotate={-16}
-            className="left-14 top-1/2 -translate-y-1/2 text-terracotta/40"
+            className="text-terracotta/40 top-1/2 left-14 -translate-y-1/2"
             animate="float-slow"
             draw
           />
@@ -62,11 +58,7 @@ export default function Home() {
         <Engagements />
 
         <SectionLink>
-          <Arc
-            size={90}
-            className="right-1/4 top-1/2 -translate-y-1/2 text-terracotta/45"
-            draw
-          />
+          <Arc size={90} className="text-terracotta/45 top-1/2 right-1/4 -translate-y-1/2" draw />
         </SectionLink>
 
         <Pricing />
@@ -74,7 +66,7 @@ export default function Home() {
         <SectionLink>
           <Crosshair
             size={20}
-            className="left-1/2 top-1/2 -translate-y-1/2 text-terracotta/50"
+            className="text-terracotta/50 top-1/2 left-1/2 -translate-y-1/2"
             draw
           />
         </SectionLink>

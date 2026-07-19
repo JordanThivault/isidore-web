@@ -63,13 +63,7 @@ export async function sendContact(
       to: [to],
       replyTo: email,
       subject: `Nouvelle demande — ${name}`,
-      text: [
-        `Nom : ${name}`,
-        `Email : ${email}`,
-        "",
-        "Message :",
-        message,
-      ].join("\n"),
+      text: [`Nom : ${name}`, `Email : ${email}`, "", "Message :", message].join("\n"),
     });
 
     if (error) {

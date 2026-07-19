@@ -57,14 +57,9 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html
-      lang="fr"
-      className={`${bricolage.variable} ${inter.variable} ${caveat.variable}`}
-    >
+    <html lang="fr" className={`${bricolage.variable} ${inter.variable} ${caveat.variable}`}>
       <body className="font-sans">
         {children}
         <Analytics />

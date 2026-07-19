@@ -8,14 +8,11 @@ const buttonVariants = cva(
     variants: {
       variant: {
         // Accent principal : encre pleine (sobre, sûr)
-        primary:
-          "bg-ink text-paper hover:bg-[#3c3931] active:bg-[#211f1b]",
+        primary: "bg-ink text-paper hover:bg-[#3c3931] active:bg-[#211f1b]",
         // Accent terracotta : à réserver aux appels à l'action forts
-        accent:
-          "bg-terracotta text-paper hover:bg-terracotta-soft",
+        accent: "bg-terracotta text-paper hover:bg-terracotta-soft",
         // Discret : contour fin
-        outline:
-          "border border-line-strong text-ink hover:bg-paper-2",
+        outline: "border border-line-strong text-ink hover:bg-paper-2",
         // Lien texte
         ghost: "text-ink hover:text-terracotta",
       },
@@ -33,16 +30,11 @@ const buttonVariants = cva(
 );
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {}
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {}
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, ...props }, ref) => (
-    <button
-      ref={ref}
-      className={cn(buttonVariants({ variant, size, className }))}
-      {...props}
-    />
+    <button ref={ref} className={cn(buttonVariants({ variant, size, className }))} {...props} />
   )
 );
 Button.displayName = "Button";

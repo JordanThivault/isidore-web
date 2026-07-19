@@ -6,11 +6,7 @@ import { z } from "zod";
  * Les messages sont volontairement en français, prêts à afficher tels quels.
  */
 export const contactSchema = z.object({
-  name: z
-    .string()
-    .trim()
-    .min(2, "Merci d'indiquer votre nom.")
-    .max(100, "Le nom est trop long."),
+  name: z.string().trim().min(2, "Merci d'indiquer votre nom.").max(100, "Le nom est trop long."),
   email: z
     .string()
     .trim()

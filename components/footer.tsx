@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { Mail, Phone } from "lucide-react";
-import { Wordmark } from "@/components/wordmark";
 import { Bracket, Ring, Ticks } from "@/components/decor";
 import { DecorReveal } from "@/components/decor-reveal";
+import Image from "next/image";
 
 const navigation = [
   { href: "#realisations", label: "Réalisations" },
@@ -20,8 +20,8 @@ const legal = [
 /** Petit label de colonne — équivalent de .eyebrow, adapté au fond terracotta. */
 function ColumnTitle({ children }: { children: React.ReactNode }) {
   return (
-    <p className="mb-4 inline-flex items-center gap-2.5 text-[0.72rem] font-medium uppercase tracking-[0.14em] text-paper/70">
-      <span className="h-px w-7 bg-paper/40" aria-hidden />
+    <p className="text-paper/70 mb-4 inline-flex items-center gap-2.5 text-[0.72rem] font-medium tracking-[0.14em] uppercase">
+      <span className="bg-paper/40 h-px w-7" aria-hidden />
       {children}
     </p>
   );
@@ -31,37 +31,47 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative overflow-hidden bg-terracotta text-paper">
+    <footer className="bg-terracotta text-paper relative overflow-hidden">
       {/* Décor géométrique — éclairci pour le fond terracotta, se trace au scroll */}
       <DecorReveal>
-        <Bracket corner="tr" className="right-5 top-10 text-paper/25" size={64} draw />
-        <Ring size={220} className="-left-24 -bottom-24 text-paper/15 hidden lg:block" draw delay={200} />
-        <Ticks className="right-10 bottom-10 text-paper/25 hidden lg:flex" count={6} />
+        <Bracket corner="tr" className="text-paper/25 top-10 right-5" size={64} draw />
+        <Ring
+          size={220}
+          className="text-paper/15 -bottom-24 -left-24 hidden lg:block"
+          draw
+          delay={200}
+        />
+        <Ticks className="text-paper/25 right-10 bottom-10 hidden lg:flex" count={6} />
       </DecorReveal>
 
       <div className="container-x relative py-16 md:py-20">
         <div className="grid gap-12 md:grid-cols-[1.3fr_1fr_1fr]">
           {/* Logo, accroche, contact */}
           <div>
-            <Wordmark className="[&>span]:text-paper" />
+            <Image
+              src="/logo-footer3.png"
+              alt="Isidore web"
+              width={220}
+              height={46}
+              className="h-10 w-auto md:h-12"
+            />
 
-            <p className="mt-4 max-w-xs text-sm text-paper/70">
-              Des sites web
-              sur-mesure pour les artisans et PME d&apos;Indre-et-Loire et de
-              la Sarthe.
+            <p className="text-paper/70 mt-4 max-w-xs text-sm">
+              Des sites web sur-mesure pour les artisans et PME d&apos;Indre-et-Loire et de la
+              Sarthe.
             </p>
 
             <div className="mt-6 space-y-2.5 text-sm">
               <a
                 href="tel:+33688358912"
-                className="flex items-center gap-2 text-paper/90 transition-colors hover:text-paper"
+                className="text-paper/90 hover:text-paper flex items-center gap-2 transition-colors"
               >
                 <Phone size={15} className="text-paper/60" />
                 06 88 35 89 12
               </a>
               <a
                 href="mailto:contact@isidoreweb.fr"
-                className="flex items-center gap-2 text-paper/90 transition-colors hover:text-paper"
+                className="text-paper/90 hover:text-paper flex items-center gap-2 transition-colors"
               >
                 <Mail size={15} className="text-paper/60" />
                 contact@isidoreweb.fr
@@ -75,10 +85,7 @@ export function Footer() {
             <ul className="space-y-2.5 text-sm">
               {navigation.map((l) => (
                 <li key={l.href}>
-                  <a
-                    href={l.href}
-                    className="text-paper/80 transition-colors hover:text-paper"
-                  >
+                  <a href={l.href} className="text-paper/80 hover:text-paper transition-colors">
                     {l.label}
                   </a>
                 </li>
@@ -92,10 +99,7 @@ export function Footer() {
             <ul className="space-y-2.5 text-sm">
               {legal.map((l) => (
                 <li key={l.href}>
-                  <Link
-                    href={l.href}
-                    className="text-paper/80 transition-colors hover:text-paper"
-                  >
+                  <Link href={l.href} className="text-paper/80 hover:text-paper transition-colors">
                     {l.label}
                   </Link>
                 </li>
@@ -104,7 +108,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 border-t border-paper/20 pt-6 text-xs text-paper/60">
+        <div className="border-paper/20 text-paper/60 mt-14 border-t pt-6 text-xs">
           © {year} Isidore web — Tous droits réservés.
         </div>
       </div>

@@ -166,12 +166,7 @@ export function ThinLine({
     <span
       aria-hidden
       style={draw ? delayStyle(delay) : undefined}
-      className={cn(
-        base,
-        "h-px origin-left bg-line-strong",
-        draw && "animate-line-x",
-        className
-      )}
+      className={cn(base, "bg-line-strong h-px origin-left", draw && "animate-line-x", className)}
     />
   );
 }
@@ -193,12 +188,7 @@ export function ThinLineY({
     <span
       aria-hidden
       style={draw ? delayStyle(delay) : undefined}
-      className={cn(
-        base,
-        "w-px origin-top bg-line-strong",
-        draw && "animate-line-y",
-        className
-      )}
+      className={cn(base, "bg-line-strong w-px origin-top", draw && "animate-line-y", className)}
     />
   );
 }
@@ -230,10 +220,7 @@ export function Diagonal({
     >
       <span
         style={draw ? delayStyle(delay) : undefined}
-        className={cn(
-          "block h-full w-full origin-left bg-line-strong",
-          draw && "animate-line-x"
-        )}
+        className={cn("bg-line-strong block h-full w-full origin-left", draw && "animate-line-x")}
       />
     </span>
   );
@@ -275,24 +262,11 @@ export function Crosshair({
 }
 
 /** Suite de petits traits verticaux, façon règle graduée. */
-export function Ticks({
-  className,
-  count = 5,
-}: {
-  className?: string;
-  count?: number;
-}) {
+export function Ticks({ className, count = 5 }: { className?: string; count?: number }) {
   return (
-    <span
-      aria-hidden
-      className={cn(base, "flex items-end gap-2 text-line-strong", className)}
-    >
+    <span aria-hidden className={cn(base, "text-line-strong flex items-end gap-2", className)}>
       {Array.from({ length: count }).map((_, i) => (
-        <span
-          key={i}
-          className="w-px bg-current"
-          style={{ height: 12 + (i % 3) * 10 }}
-        />
+        <span key={i} className="w-px bg-current" style={{ height: 12 + (i % 3) * 10 }} />
       ))}
     </span>
   );
@@ -314,7 +288,7 @@ export function Dots({
     <span
       aria-hidden
       style={{ gridTemplateColumns: `repeat(${cols}, ${gap}px)` }}
-      className={cn(base, "grid text-line-strong", className)}
+      className={cn(base, "text-line-strong grid", className)}
     >
       {Array.from({ length: cols * rows }).map((_, i) => (
         <span key={i} style={{ height: gap }} className="flex items-center">

@@ -10,8 +10,7 @@ export default function MentionsLegales() {
       <p>
         Jordan Thivault — Isidore Web, Entrepreneur Individuel
         <br />
-        Adresse : 26 B rue Aristide Briand, Château-du-Loir, 72500
-        Montval-sur-Loir
+        Adresse : 26 B rue Aristide Briand, Château-du-Loir, 72500 Montval-sur-Loir
         <br />
         SIRET : 989 714 902 00016
         <br />
@@ -31,9 +30,8 @@ export default function MentionsLegales() {
 
       <h2>Propriété intellectuelle</h2>
       <p>
-        L&apos;ensemble des contenus de ce site (textes, visuels, code) est la
-        propriété de leur auteur, sauf mention contraire. Toute reproduction
-        sans autorisation est interdite.
+        L&apos;ensemble des contenus de ce site (textes, visuels, code) est la propriété de leur
+        auteur, sauf mention contraire. Toute reproduction sans autorisation est interdite.
       </p>
     </LegalPage>
   );
